@@ -11,6 +11,14 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
+env = environ.Env()
+env.read_env()
+root_path = environ.Path(__file__) - 2
+# ENV = env('DJANGO_ENV')
+DEBUG = env.bool('DEBUG', default=False)
+DJANGO_SECRET_KEY = env('DJANGO_SECRET_KEY')
+DATABASES = {'default': env.db('DATABASE_URL')}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
